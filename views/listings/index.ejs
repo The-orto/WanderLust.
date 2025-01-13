@@ -1,0 +1,173 @@
+<% layout("/layouts/basic")%>
+
+<style>
+#filters{
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.filter{
+  padding: 8px;
+  text-align: center;
+  margin-right: 2rem;
+  margin-top: 1.5rem;
+  opacity: 0.7;
+  
+}
+.filter:hover{
+color:red;
+opacity: 1;
+cursor: pointer;
+
+}
+.filter p{
+  font-size: 0.9rem;
+}
+.tax-info{
+  display: none;
+}
+.tax-toggle{
+  border: 1px solid black;
+  border-radius: 1rem;
+  height: 3.5rem;
+  padding: 1rem;
+  margin-left: 1rem;
+  display: flex;
+  align-items: center;
+}
+/* Mobile styles */
+@media (max-width: 600px) {
+  #filters {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .filter {
+    margin-right: 0;
+    margin-top: 1rem;
+    width: 100%;
+  }
+  .tax-toggle {
+    width: 100%;
+    margin-left: 0;
+    margin-top: 1rem;
+  }
+}
+
+/* Tablet styles */
+@media (min-width: 601px) and (max-width: 1024px) {
+  #filters {
+    flex-direction: row;
+    justify-content: space-around;
+  }
+  .filter {
+    margin-right: 1rem;
+    margin-top: 1rem;
+    width: auto;
+  }
+  .tax-toggle {
+    width: auto;
+    margin-left: 0.5rem;
+  }
+}
+
+/* Desktop styles */
+@media (min-width: 1025px) {
+  #filters {
+    flex-direction: row;
+    justify-content: flex-start;
+  }
+  .filter {
+    margin-right: 2rem;
+    margin-top: 1.5rem;
+    width: auto;
+  }
+  .tax-toggle {
+    width: auto;
+    margin-left: 1rem;
+  }
+}
+</style>
+  <div class="row cards">
+  <div id="filters">
+    <div class="filter"> 
+      <div><i class="fa-solid fa-city"></i></div>
+      <p> Bnb-City</p>
+    </div>
+    <div class="filter"> 
+      <div><i class="fa-solid fa-hospital"></i></div>
+      <p> Bnb-Hospitals</p>
+    </div>
+    <div class="filter"> 
+      <div><i class="fa-solid fa-bed"></i></div>
+      <p> Bnb-Rooms</p>
+    </div>
+    <div class="filter"> 
+      <div><i class="fa-solid fa-ship"></i></div>
+      <p> Bnb-Ships</p>
+    </div>
+    <div class="filter"> 
+      <div><i class="fa-solid fa-mountain"></i></div>
+      <p> Bnb-Hills</p>
+    </div>
+    <div class="filter"> 
+      <div><i class="fa-solid fa-cube"></i></div>
+      <p> Bnb-Rubs</p>
+    </div>
+    <div class="filter"> 
+      <div><i class="fa-solid fa-bag-shopping"></i></div>
+      <p> Bnb-Shops</p>
+    </div>
+    <div class="filter"> 
+      <div><i class="fa-solid fa-snowflake"></i></div>
+      <p> Bnb-Flair</p>
+    </div>
+  <div class="filter">
+    <div> <i class="fa-solid fa-filter"></i></div>
+    <p>Bnb-Filter</p>
+  </div>
+  <div class="tax-toggle">
+    <div class="form-check-reverse form-switch">
+      <label class="form-check-label" for="flexSwitchCheckDefault">
+        Display Total After Taxes</label> &nbsp;
+      <input class="form-check-input" type="checkbox" role="switch"  id="flexSwitchCheckDefault">
+    </div>
+  </div>
+  </div>
+  <hr>
+<div class="row  row-cols-lg-3 row-cols-md-2 row-cols-sm-1 mt-3">
+    <% for(let listing of allListings){ %>
+      <a href="/listings/<%=listing._id %>" class="listing-link ">
+    <div class="card col listing-card ">
+        <img class="card-img-top"
+          src="<%=listing.image.url%>"
+          alt="listing_image" 
+          style="height: 20rem;"/>
+        <div class="card-img-overlay"></div>
+        <div class="card-body ">
+          <p class="card-text mt-2 ">
+            <b><%= listing.title %> <br /></b> 
+            &#8377;<%= listing.price.toLocaleString("en-IN")%> / night
+            <i class="tax-info"> &nbsp; &nbsp;+18% GST</i>
+          </p>
+        </div>
+    </div>
+    </a>
+      <% } %>
+  </div>
+</div>
+<script>
+  let taxSwitch = document.getElementById("flexSwitchCheckDefault");
+  taxSwitch.addEventListener("click", () =>{
+    let taxInfo = document.getElementsByClassName("tax-info");
+    for (info of taxInfo){
+      if (info.style.display != "inline"){
+        info.style.display = "inline";
+      } else{
+        info.style.display = "none"
+      }
+    }
+  });
+</script>
+        
+
+

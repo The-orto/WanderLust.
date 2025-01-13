@@ -1,0 +1,14 @@
+<% layout("/layouts/basic")%>
+<body>
+  <h1>Listings</h1>
+  <ul>
+      <% listing1.forEach(listing => { %>
+        <li>
+          <h2><%= listing.title %></h2>
+          <p><%= listing.description %></p>
+        </li>
+      <% }) %>
+  </ul>
+</body>
+
+
